@@ -23,6 +23,8 @@ namespace TakeTheSky
             Target = target;
             Explorer = explorer;
             ArrivalYear = arrivalYear;
+            
+            DataPackets = new List<DataPacket>();
         }
 
         public void GenerateDataPacket()

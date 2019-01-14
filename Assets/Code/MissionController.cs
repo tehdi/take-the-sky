@@ -10,10 +10,9 @@ namespace TakeTheSky
         public Text CurrentEpAmountText;
 
         public Transform ActiveMissionsParentContent;
+        public ToggleGroup ActiveMissionsToggleGroup;
+        public GameObject MissionDetailsController;
         public GameObject ActiveMissionPrefab;
-
-        public GameObject MissionDetailsPanel;
-
 
         public void EndYear()
         {
@@ -64,22 +63,11 @@ namespace TakeTheSky
         private void AddMissionButton(Mission mission)
         {
             var missionButtonInstance = Instantiate(ActiveMissionPrefab, ActiveMissionsParentContent, false);
-            missionButtonInstance.GetComponent<Button>().onClick.AddListener(() => ToggleMissionDetails(mission));
+            missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup.GetComponent<ToggleGroup>();
+            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(
+                enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleMissionDetails(mission));
             missionButtonInstance.transform.Find("ActiveMissionButtonController").GetComponent<ActiveMissionButtonController>().Initialize(mission);
             mission.MissionButton = missionButtonInstance.GetComponent<Button>();
-        }
-
-        private void ToggleMissionDetails(Mission mission)
-        {
-            if (MissionDetailsPanel.activeInHierarchy)
-            {
-                MissionDetailsPanel.SetActive(false);
-            }
-            else
-            {
-                MissionDetailsPanel.SetActive(true);
-                
-            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using UnityEngine.UI;
 
 namespace TakeTheSky
 {
@@ -14,6 +15,11 @@ namespace TakeTheSky
                 dictionary.Add(key, list = new List<TValue>());
             }
             dictionary[key].Add(value);
+        }
+
+        public static Toggle GetActive(this ToggleGroup toggleGroup)
+        {
+            return toggleGroup.ActiveToggles().FirstOrDefault();
         }
     }
 }

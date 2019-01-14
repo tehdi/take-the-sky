@@ -7,7 +7,6 @@ namespace TakeTheSky
 {
     public class ActiveMissionButtonController : MonoBehaviour
     {
-        public Button ActiveMissionButton;
         public Text ActiveMissionButtonText;
 
         public void Initialize(Mission mission)
