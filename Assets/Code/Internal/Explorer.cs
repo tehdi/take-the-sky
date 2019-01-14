@@ -2,7 +2,7 @@ namespace TakeTheSky
 {
     public class Explorer
     {
-        public string Name;
+        public ExplorerType Type;
     }
 
     public enum ExplorerType

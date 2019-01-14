@@ -1,17 +1,19 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TakeTheSky
 {
-    public class ActiveMissionUiComponentInitializer : MonoBehaviour
+    public class ActiveMissionButtonController : MonoBehaviour
     {
+        public Button ActiveMissionButton;
         public Text ActiveMissionButtonText;
 
-        public void Initialize(string missionName, string targetName, int launchYear, int arrivalYear)
+        public void Initialize(Mission mission)
         {
             /*
-                {mission name} (actually the explorer name. all missions are named after their explorers)
+                {mission name}
                 {target}
                 {launch year - arrival year}
 
@@ -20,7 +22,7 @@ namespace TakeTheSky
                     Pluto
                     2006-2015
              */
-             ActiveMissionButtonText.text = BuildText(missionName, targetName, launchYear, arrivalYear);
+             ActiveMissionButtonText.text = BuildText(mission.Name, mission.Target.Name, mission.LaunchYear, mission.ArrivalYear);
         }
 
         private string BuildText(string missionName, string targetName, int launchYear, int arrivalYear)
