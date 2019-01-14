@@ -11,6 +11,6 @@ namespace TakeTheSky
         public static int CurrentEp = START_EP;
         public static int EpGainPerYear = 1;
 
-        public static List<Mission> ActiveMissions = new List<Mission>();
+        public static Dictionary<int, List<Mission>> ActiveMissions = new Dictionary<int, List<Mission>>();
     }
 }

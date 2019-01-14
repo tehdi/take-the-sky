@@ -16,7 +16,8 @@ namespace TakeTheSky
         {
             CurrentState.CurrentYear++;
             CurrentState.CurrentEp += CurrentState.EpGainPerYear;
-            
+            ProcessArrivedMissions();
+
             CurrentYearText.text = $"{CurrentState.CurrentYear}";
             CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
         }
@@ -28,20 +29,34 @@ namespace TakeTheSky
 
             Target target = new Target() { Name = "Default Target" };
             Explorer explorer = new Explorer() { Name = "Default Explorer" };
-            int estimatedArrivalYear = 2015;
+            int arrivalYear = CurrentState.CurrentYear + 2;
             Mission defaultMission = MissionBuilder.NewMission()
                 .ToTarget(target)
                 .UsingExplorer(explorer)
                 .Costing(epCost)
                 .LaunchingIn(CurrentState.CurrentYear)
-                .EstimatedToArriveIn(estimatedArrivalYear)
+                .ArrivingIn(arrivalYear)
                 .Build();
-            CurrentState.ActiveMissions.Add(defaultMission);
+            CurrentState.ActiveMissions.Add(arrivalYear, defaultMission);
 
             CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
             Instantiate(ActiveMissionPrefab, ActiveMissionsParentContent, false)
                 .transform.Find("ActiveMissionUiComponentInitializer").GetComponent<ActiveMissionUiComponentInitializer>()
-                .Initialize(explorer.Name, target.Name, CurrentState.CurrentYear, estimatedArrivalYear);
+                .Initialize(explorer.Name, target.Name, CurrentState.CurrentYear, arrivalYear);
+        }
+
+        private void ProcessArrivedMissions()
+        {
+            List<Mission> arrivedMissions;
+            bool anyMissionsArrivingThisYear = CurrentState.ActiveMissions.TryGetValue(CurrentState.CurrentYear, out arrivedMissions);
+
+            if (anyMissionsArrivingThisYear)
+            {
+                foreach (var mission in arrivedMissions)
+                {
+                    mission.GenerateDataPacket();
+                }
+            }
         }
     }
 }
