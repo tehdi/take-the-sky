@@ -6,12 +6,19 @@ namespace TakeTheSky
         {
             return new MissionBuilder();
         }
-        
+
+        private string Name;
         private Explorer Explorer;
         private Target Target;
         private int LaunchYear;
         private int EpCost;
         private int ArrivalYear;
+
+        public MissionBuilder Named(string missionName)
+        {
+            Name = missionName;
+            return this;
+        }
 
         public MissionBuilder UsingExplorer(Explorer explorer)
         {
@@ -46,6 +53,7 @@ namespace TakeTheSky
         public Mission Build()
         {
             return new Mission(
+                name: Name,
                 launchYear: LaunchYear,
                 epCost: EpCost,
                 target: Target,
