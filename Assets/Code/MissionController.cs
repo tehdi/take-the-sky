@@ -67,7 +67,6 @@ namespace TakeTheSky
             missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(
                 enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleMissionDetails(mission));
             missionButtonInstance.transform.Find("ActiveMissionButtonController").GetComponent<ActiveMissionButtonController>().Initialize(mission);
-            mission.MissionButton = missionButtonInstance.GetComponent<Button>();
         }
     }
 }

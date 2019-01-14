@@ -17,14 +17,12 @@ namespace TakeTheSky
 
         public void ToggleMissionDetails(Mission mission)
         {
-            ToggleGroup toggleGroup = ActiveMissionsToggleGroup.GetComponent<ToggleGroup>();
-            if (!toggleGroup.AnyTogglesOn())
+            if (!ActiveMissionsToggleGroup.GetComponent<ToggleGroup>().AnyTogglesOn())
             {
                 MissionDetailsPanel.SetActive(false);
             }
             else
             {
-                var activeMission = toggleGroup.GetActive();
                 MissionDetailsPanel.SetActive(true);
 
                 MissionNameText.text = mission.Name;

@@ -13,8 +13,6 @@ namespace TakeTheSky
         public int ArrivalYear { get; private set; }
         public List<DataPacket> DataPackets { get; private set; }
 
-        public Button MissionButton;
-
         public Mission(string name, int launchYear, int epCost, Target target, Explorer explorer, int arrivalYear)
         {
             Name = name;
