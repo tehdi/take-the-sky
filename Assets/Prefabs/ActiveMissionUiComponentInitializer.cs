@@ -8,27 +8,27 @@ namespace TakeTheSky
     {
         public Text ActiveMissionButtonText;
 
-        public void Initialize(string missionName, string targetName, int launchYear, int estimatedArrivalYear)
+        public void Initialize(string missionName, string targetName, int launchYear, int arrivalYear)
         {
             /*
                 {mission name} (actually the explorer name. all missions are named after their explorers)
                 {target}
-                {launch year - estimated arrival year}
+                {launch year - arrival year}
 
                 eg:
                     New Horizons
                     Pluto
-                    2006-2015?
+                    2006-2015
              */
-             ActiveMissionButtonText.text = BuildText(missionName, targetName, launchYear, estimatedArrivalYear);
+             ActiveMissionButtonText.text = BuildText(missionName, targetName, launchYear, arrivalYear);
         }
 
-        private string BuildText(string missionName, string targetName, int launchYear, int estimateArrivalYear)
+        private string BuildText(string missionName, string targetName, int launchYear, int arrivalYear)
         {
             var missionDetails = new StringBuilder();
             missionDetails.AppendLine(missionName);
             missionDetails.AppendLine(targetName);
-            missionDetails.AppendLine($"{launchYear}-{estimateArrivalYear}?");
+            missionDetails.AppendLine($"{launchYear}-{arrivalYear}");
             return missionDetails.ToString();
         }
     }

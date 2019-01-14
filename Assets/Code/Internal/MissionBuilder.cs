@@ -11,7 +11,7 @@ namespace TakeTheSky
         private Target Target;
         private int LaunchYear;
         private int EpCost;
-        private int EstimatedArrivalYear;
+        private int ArrivalYear;
 
         public MissionBuilder UsingExplorer(Explorer explorer)
         {
@@ -37,9 +37,9 @@ namespace TakeTheSky
             return this;
         }
 
-        public MissionBuilder EstimatedToArriveIn(int estimatedArrivalYear)
+        public MissionBuilder ArrivingIn(int arrivalYear)
         {
-            EstimatedArrivalYear = estimatedArrivalYear;
+            ArrivalYear = arrivalYear;
             return this;
         }
 
@@ -50,7 +50,7 @@ namespace TakeTheSky
                 epCost: EpCost,
                 target: Target,
                 explorer: Explorer,
-                estimatedArrivalYear: EstimatedArrivalYear
+                arrivalYear: ArrivalYear
             );
         }
     }
