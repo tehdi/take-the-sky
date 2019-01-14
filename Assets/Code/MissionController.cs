@@ -1,16 +1,25 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TakeTheSky
 {
-    public class MissionControl : MonoBehaviour
+    public class MissionController : MonoBehaviour
     {
+        public Text CurrentYearText;
+        public Text CurrentEpAmountText;
+
         public Transform ActiveMissionsParentContent;
         public GameObject ActiveMissionPrefab;
 
-        private List<Mission> ActiveMissions = new List<Mission>();
+        public void EndYear()
+        {
+            CurrentState.CurrentYear++;
+            CurrentState.CurrentEp += CurrentState.EpGainPerYear;
+            
+            CurrentYearText.text = $"{CurrentState.CurrentYear}";
+            CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
+        }
 
         public void LaunchMission()
         {
@@ -27,8 +36,9 @@ namespace TakeTheSky
                 .LaunchingIn(CurrentState.CurrentYear)
                 .EstimatedToArriveIn(estimatedArrivalYear)
                 .Build();
-            ActiveMissions.Add(defaultMission);
+            CurrentState.ActiveMissions.Add(defaultMission);
 
+            CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
             Instantiate(ActiveMissionPrefab, ActiveMissionsParentContent, false)
                 .transform.Find("ActiveMissionUiComponentInitializer").GetComponent<ActiveMissionUiComponentInitializer>()
                 .Initialize(explorer.Name, target.Name, CurrentState.CurrentYear, estimatedArrivalYear);

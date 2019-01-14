@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TakeTheSky
 {
     public static class CurrentState
@@ -8,5 +10,7 @@ namespace TakeTheSky
         public static int CurrentYear = START_YEAR;
         public static int CurrentEp = START_EP;
         public static int EpGainPerYear = 1;
+
+        public static List<Mission> ActiveMissions = new List<Mission>();
     }
 }
