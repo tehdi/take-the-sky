@@ -7,6 +7,7 @@ namespace TakeTheSky
 {
     public class ActiveMissionButtonController : MonoBehaviour
     {
+        public Toggle ActiveMissionToggleButton;
         public Text ActiveMissionButtonText;
 
         public void Initialize(Mission mission)
@@ -21,7 +22,7 @@ namespace TakeTheSky
                     Pluto
                     2006-2015
              */
-             ActiveMissionButtonText.text = BuildText(mission.Name, mission.Target.Name, mission.LaunchYear, mission.ArrivalYear);
+            ActiveMissionButtonText.text = BuildText(mission.Name, mission.Target.Name, mission.LaunchYear, mission.ArrivalYear);
         }
 
         private string BuildText(string missionName, string targetName, int launchYear, int arrivalYear)
@@ -31,6 +32,18 @@ namespace TakeTheSky
             missionDetails.AppendLine(targetName);
             missionDetails.AppendLine($"{launchYear}-{arrivalYear}");
             return missionDetails.ToString();
+        }
+
+        public void ChangeBackground(bool isOn)
+        {
+            if (isOn)
+            {
+                ActiveMissionToggleButton.image.color = new Color32(92, 205, 253, 255);
+            }
+            else
+            {
+                ActiveMissionToggleButton.image.color = Color.white;
+            }
         }
     }
 }
