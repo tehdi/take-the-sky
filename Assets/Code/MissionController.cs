@@ -9,12 +9,23 @@ namespace TakeTheSky
         public Text CurrentYearText;
         public Text CurrentEpAmountText;
 
+        public Toggle ActiveMissionsToggleButton;
+        public Toggle CompletedMissionsToggleButton;
+        public GameObject ActiveMissionsScrollView;
+        public GameObject CompletedMissionsScrollView;
+
         public GameObject MissionDetailsController;
-        public GameObject ActiveMissionPrefab;
+        public GameObject MissionToggleButtonPrefab;
         public Transform ActiveMissionsParentContent;
         public ToggleGroup ActiveMissionsToggleGroup;
         public Transform CompletedMissionsParentContent;
         public ToggleGroup CompletedMissionsToggleGroup;
+
+        void Start()
+        {
+            ToggleActiveMissionsDisplay(true);
+            ToggleCompletedMissionsDisplay(false);
+        }
 
         public void EndYear()
         {
@@ -44,6 +55,18 @@ namespace TakeTheSky
             }
         }
 
+        private void CompleteMission(Mission mission)
+        {
+            Destroy(mission.Button); // the old button is attached to all the "active" group stuff
+
+            var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, CompletedMissionsParentContent, false);
+            missionButtonInstance.GetComponent<Toggle>().group = CompletedMissionsToggleGroup.GetComponent<ToggleGroup>();
+            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(
+                enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleCompletedMissionDetails(mission));
+            missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
+            mission.Button = missionButtonInstance;
+        }
+
         public void LaunchMission()
         {
             int epCost = 1;
@@ -68,18 +91,47 @@ namespace TakeTheSky
 
         private void AddActiveMissionButton(Mission mission)
         {
-            var missionButtonInstance = Instantiate(ActiveMissionPrefab, ActiveMissionsParentContent, false);
+            var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, ActiveMissionsParentContent, false);
             missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup.GetComponent<ToggleGroup>();
             missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(
-                enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleMissionDetails(mission));
+                enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleActiveMissionDetails(mission));
             missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
             mission.Button = missionButtonInstance;
         }
 
-        private void CompleteMission(Mission mission)
+        public void ToggleActiveMissionsDisplay(bool isOn)
         {
-            mission.Button.transform.SetParent(CompletedMissionsParentContent, false);
-            mission.Button.GetComponent<Toggle>().group = CompletedMissionsToggleGroup;
+            ActiveMissionsScrollView.SetActive(isOn);
+            CompletedMissionsScrollView.SetActive(!isOn);
+            ToggleActiveCompletedMissionsDisplay();
+            ChangeBackgroundColor(ActiveMissionsToggleButton);
+        }
+
+        public void ToggleCompletedMissionsDisplay(bool isOn)
+        {
+            CompletedMissionsScrollView.SetActive(isOn);
+            ActiveMissionsScrollView.SetActive(!isOn);
+            ToggleActiveCompletedMissionsDisplay();
+            ChangeBackgroundColor(CompletedMissionsToggleButton);
+        }
+
+        private void ToggleActiveCompletedMissionsDisplay()
+        {
+            MissionDetailsController.GetComponent<MissionDetailsController>().HideMissionDetails();
+            ActiveMissionsToggleGroup.SetAllTogglesOff();
+            CompletedMissionsToggleGroup.SetAllTogglesOff();
+        }
+
+        private void ChangeBackgroundColor(Toggle toggleButton)
+        {
+            if (toggleButton.isOn)
+            {
+                toggleButton.image.color = new Color32(92, 205, 253, 255);
+            }
+            else
+            {
+                toggleButton.image.color = Color.white;
+            }
         }
     }
 }

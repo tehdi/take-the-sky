@@ -18,8 +18,8 @@ namespace TakeTheSky
         public MissionStatus Status { get
         {
             return CurrentState.CurrentYear < ArrivalYear ? MissionStatus.EnRoute
-                    : IsComplete() ? MissionStatus.Inactive
-                    : MissionStatus.Active;
+                    : IsComplete() ? MissionStatus.Complete
+                    : MissionStatus.DoingScience;
         }}
 
         public Mission(string name, int launchYear, int epCost, Target target, Explorer explorer, int arrivalYear)
@@ -45,6 +45,6 @@ namespace TakeTheSky
 
     public enum MissionStatus
     {
-        EnRoute, Active, Inactive
+        EnRoute, DoingScience, Complete
     }
 }
