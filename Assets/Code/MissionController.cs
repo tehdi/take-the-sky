@@ -9,10 +9,12 @@ namespace TakeTheSky
         public Text CurrentYearText;
         public Text CurrentEpAmountText;
 
-        public Transform ActiveMissionsParentContent;
-        public ToggleGroup ActiveMissionsToggleGroup;
         public GameObject MissionDetailsController;
         public GameObject ActiveMissionPrefab;
+        public Transform ActiveMissionsParentContent;
+        public ToggleGroup ActiveMissionsToggleGroup;
+        public Transform CompletedMissionsParentContent;
+        public ToggleGroup CompletedMissionsToggleGroup;
 
         public void EndYear()
         {
@@ -34,6 +36,10 @@ namespace TakeTheSky
                 foreach (var mission in arrivedMissions)
                 {
                     mission.GenerateDataPacket();
+                    if (mission.IsComplete())
+                    {
+                        CompleteMission(mission);
+                    }
                 }
             }
         }
@@ -55,18 +61,25 @@ namespace TakeTheSky
                 .ArrivingIn(arrivalYear)
                 .Build();
             CurrentState.ActiveMissions.Add(arrivalYear, defaultMission);
-            AddMissionButton(defaultMission);
+            AddActiveMissionButton(defaultMission);
 
             CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
         }
 
-        private void AddMissionButton(Mission mission)
+        private void AddActiveMissionButton(Mission mission)
         {
             var missionButtonInstance = Instantiate(ActiveMissionPrefab, ActiveMissionsParentContent, false);
             missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup.GetComponent<ToggleGroup>();
             missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(
                 enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleMissionDetails(mission));
-            missionButtonInstance.transform.Find("ActiveMissionButtonController").GetComponent<ActiveMissionButtonController>().Initialize(mission);
+            missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
+            mission.Button = missionButtonInstance;
+        }
+
+        private void CompleteMission(Mission mission)
+        {
+            mission.Button.transform.SetParent(CompletedMissionsParentContent, false);
+            mission.Button.GetComponent<Toggle>().group = CompletedMissionsToggleGroup;
         }
     }
 }

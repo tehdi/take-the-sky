@@ -9,6 +9,7 @@ namespace TakeTheSky
         public GameObject MissionDetailsPanel;
 
         public Text MissionNameText;
+        public Text MissionStatusValueText;
         public Text LaunchYearValueText;
         public Text ArrivalYearValueText;
         public Text EpCostAmountText;
@@ -26,6 +27,7 @@ namespace TakeTheSky
                 MissionDetailsPanel.SetActive(true);
 
                 MissionNameText.text = mission.Name;
+                MissionStatusValueText.text = $"{mission.Status}";
                 LaunchYearValueText.text = $"{mission.LaunchYear}";
                 ArrivalYearValueText.text = $"{mission.ArrivalYear}";
                 EpCostAmountText.text = $"{mission.EpCost}";

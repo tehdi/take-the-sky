@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2901374735451079784}
   - component: {fileID: 4662675565647144516}
   m_Layer: 5
-  m_Name: ActiveMissionToggleButton
+  m_Name: MissionToggleButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2299756399129806951}
+      - m_Target: {fileID: 4970170613344443601}
         m_MethodName: ChangeBackground
         m_Mode: 0
         m_Arguments:
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 5785379986158067664}
   - component: {fileID: 2266043953137855384}
   m_Layer: 5
-  m_Name: ActiveMissionButtonText
+  m_Name: MissionToggleButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,9 +226,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4600203780643507541}
-  - component: {fileID: 2299756399129806951}
+  - component: {fileID: 4970170613344443601}
   m_Layer: 0
-  m_Name: ActiveMissionButtonController
+  m_Name: MissionToggleButtonController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ Transform:
   m_Father: {fileID: 3507649327835613841}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2299756399129806951
+--- !u!114 &4970170613344443601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,5 +260,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f755246bc7a2eb14390abb2c2033ff42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveMissionToggleButton: {fileID: 4662675565647144516}
-  ActiveMissionButtonText: {fileID: 2266043953137855384}
+  MissionToggleButton: {fileID: 4662675565647144516}
+  MissionToggleButtonText: {fileID: 2266043953137855384}

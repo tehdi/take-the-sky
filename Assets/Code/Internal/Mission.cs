@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace TakeTheSky
 {
@@ -12,6 +12,15 @@ namespace TakeTheSky
         public Explorer Explorer { get; }
         public int ArrivalYear { get; private set; }
         public List<DataPacket> DataPackets { get; private set; }
+        private int MaximumDataPacketCount;
+        public GameObject Button;
+
+        public MissionStatus Status { get
+        {
+            return CurrentState.CurrentYear < ArrivalYear ? MissionStatus.EnRoute
+                    : IsComplete() ? MissionStatus.Inactive
+                    : MissionStatus.Active;
+        }}
 
         public Mission(string name, int launchYear, int epCost, Target target, Explorer explorer, int arrivalYear)
         {
@@ -21,14 +30,21 @@ namespace TakeTheSky
             Target = target;
             Explorer = explorer;
             ArrivalYear = arrivalYear;
-            
+
             DataPackets = new List<DataPacket>();
         }
 
         public void GenerateDataPacket()
         {
             var dataPacket = new DataPacket() { Category = DataPacketCategory.Small };
-            DataPackets.Add(dataPacket); 
+            DataPackets.Add(dataPacket);
         }
+
+        public bool IsComplete() => DataPackets.Count >= MaximumDataPacketCount;
+    }
+
+    public enum MissionStatus
+    {
+        EnRoute, Active, Inactive
     }
 }

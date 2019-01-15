@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 namespace TakeTheSky
 {
-    public class ActiveMissionButtonController : MonoBehaviour
+    public class MissionToggleButtonController : MonoBehaviour
     {
-        public Toggle ActiveMissionToggleButton;
-        public Text ActiveMissionButtonText;
+        public Toggle MissionToggleButton;
+        public Text MissionToggleButtonText;
 
         public void Initialize(Mission mission)
         {
@@ -22,7 +22,7 @@ namespace TakeTheSky
                     Pluto
                     2006-2015
              */
-            ActiveMissionButtonText.text = BuildText(mission.Name, mission.Target.Name, mission.LaunchYear, mission.ArrivalYear);
+            MissionToggleButtonText.text = BuildText(mission.Name, mission.Target.Name, mission.LaunchYear, mission.ArrivalYear);
         }
 
         private string BuildText(string missionName, string targetName, int launchYear, int arrivalYear)
@@ -38,11 +38,11 @@ namespace TakeTheSky
         {
             if (isOn)
             {
-                ActiveMissionToggleButton.image.color = new Color32(92, 205, 253, 255);
+                MissionToggleButton.image.color = new Color32(92, 205, 253, 255);
             }
             else
             {
-                ActiveMissionToggleButton.image.color = Color.white;
+                MissionToggleButton.image.color = Color.white;
             }
         }
     }
