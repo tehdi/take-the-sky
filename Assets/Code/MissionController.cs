@@ -29,6 +29,7 @@ namespace TakeTheSky
 
         public void EndYear()
         {
+            TurnOffMissionsDisplay();
             CurrentState.CurrentYear++;
             CurrentState.CurrentEp += CurrentState.EpGainPerYear;
             ProcessArrivedMissions();
@@ -103,7 +104,7 @@ namespace TakeTheSky
         {
             ActiveMissionsScrollView.SetActive(isOn);
             CompletedMissionsScrollView.SetActive(!isOn);
-            ToggleActiveCompletedMissionsDisplay();
+            TurnOffMissionsDisplay();
             ChangeBackgroundColor(ActiveMissionsToggleButton);
         }
 
@@ -111,11 +112,11 @@ namespace TakeTheSky
         {
             CompletedMissionsScrollView.SetActive(isOn);
             ActiveMissionsScrollView.SetActive(!isOn);
-            ToggleActiveCompletedMissionsDisplay();
+            TurnOffMissionsDisplay();
             ChangeBackgroundColor(CompletedMissionsToggleButton);
         }
 
-        private void ToggleActiveCompletedMissionsDisplay()
+        private void TurnOffMissionsDisplay()
         {
             MissionDetailsController.GetComponent<MissionDetailsController>().HideMissionDetails();
             ActiveMissionsToggleGroup.SetAllTogglesOff();
