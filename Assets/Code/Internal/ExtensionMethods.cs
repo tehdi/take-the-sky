@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
@@ -17,9 +18,10 @@ namespace TakeTheSky
             dictionary[key].Add(value);
         }
 
-        public static Toggle GetActive(this ToggleGroup toggleGroup)
+        // https://stackoverflow.com/a/538751/9319242
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
         {
-            return toggleGroup.ActiveToggles().FirstOrDefault();
+            return dictionary.TryGetValue(key, out var value) ? value : defaultValue;
         }
     }
 }

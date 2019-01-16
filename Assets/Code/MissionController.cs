@@ -6,8 +6,17 @@ namespace TakeTheSky
 {
     public class MissionController : MonoBehaviour
     {
+        private static readonly Dictionary<DataPacketCategory, int> SCIENCE_POINT_REWARDS = new Dictionary<DataPacketCategory, int>
+        {
+            [DataPacketCategory.Small] = 3,
+            [DataPacketCategory.Medium] = 5,
+            [DataPacketCategory.Large] = 8,
+            [DataPacketCategory.Photo] = 10
+        };
+
         public Text CurrentYearText;
         public Text CurrentEpAmountText;
+        public Text CurrentSpAmountText;
 
         public Toggle ActiveMissionsToggleButton;
         public Toggle CompletedMissionsToggleButton;
@@ -36,6 +45,7 @@ namespace TakeTheSky
 
             CurrentYearText.text = $"{CurrentState.CurrentYear}";
             CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
+            CurrentSpAmountText.text = $"{CurrentState.CurrentSp}";
         }
 
         private void ProcessArrivedMissions()
@@ -47,7 +57,8 @@ namespace TakeTheSky
             {
                 foreach (var mission in arrivedMissions)
                 {
-                    mission.GenerateDataPacket();
+                    DataPacket dataPacket = mission.GenerateDataPacket();
+                    CurrentState.CurrentSp += SCIENCE_POINT_REWARDS.GetOrDefault(dataPacket.Category, 1);
                     if (mission.IsComplete())
                     {
                         CompleteMission(mission);
