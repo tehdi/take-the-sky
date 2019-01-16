@@ -34,10 +34,12 @@ namespace TakeTheSky
             DataPackets = new List<DataPacket>();
         }
 
-        public void GenerateDataPacket()
+        public DataPacket GenerateDataPacket()
         {
-            var dataPacket = new DataPacket() { Category = DataPacketCategory.Small };
+            var dataPacket = new DataPacket();
+            dataPacket.Category = UtilityMethods.RandomEnumValue<DataPacketCategory>();
             DataPackets.Add(dataPacket);
+            return dataPacket;
         }
 
         public bool IsComplete() => DataPackets.Count >= MaximumDataPacketCount;
