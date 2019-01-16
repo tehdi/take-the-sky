@@ -5,10 +5,15 @@ namespace TakeTheSky
 {
     public class MissionDetailsController : MonoBehaviour
     {
+        public Toggle ActiveMissionsToggleButton;
+        public GameObject ActiveMissionsScrollView;
         public ToggleGroup ActiveMissionsToggleGroup;
-        public ToggleGroup CompletedMissionsToggleGroup;
-        public GameObject MissionDetailsPanel;
 
+        public Toggle CompletedMissionsToggleButton;
+        public GameObject CompletedMissionsScrollView;
+        public ToggleGroup CompletedMissionsToggleGroup;
+
+        public GameObject MissionDetailsPanel;
         public Text MissionNameText;
         public Text MissionStatusValueText;
         public Text LaunchYearValueText;
@@ -17,9 +22,45 @@ namespace TakeTheSky
         public Text ExplorerTypeValueText;
         public Text ExplorerEquipmentValueText;    
 
-        public void HideMissionDetails()
+        void Start()
+        {
+            ToggleActiveMissionsDisplay(true);
+            ToggleCompletedMissionsDisplay(false);
+        }
+
+        public void ToggleActiveMissionsDisplay(bool isOn)
+        {
+            ActiveMissionsScrollView.SetActive(isOn);
+            CompletedMissionsScrollView.SetActive(!isOn);
+            TurnOffMissionsDisplay();
+            ChangeBackgroundColor(ActiveMissionsToggleButton);
+        }
+
+        public void ToggleCompletedMissionsDisplay(bool isOn)
+        {
+            CompletedMissionsScrollView.SetActive(isOn);
+            ActiveMissionsScrollView.SetActive(!isOn);
+            TurnOffMissionsDisplay();
+            ChangeBackgroundColor(CompletedMissionsToggleButton);
+        }
+
+        public void TurnOffMissionsDisplay()
         {
             MissionDetailsPanel.SetActive(false);
+            ActiveMissionsToggleGroup.SetAllTogglesOff();
+            CompletedMissionsToggleGroup.SetAllTogglesOff();
+        }
+
+        private void ChangeBackgroundColor(Toggle toggleButton)
+        {
+            if (toggleButton.isOn)
+            {
+                toggleButton.image.color = new Color32(92, 205, 253, 255);
+            }
+            else
+            {
+                toggleButton.image.color = Color.white;
+            }
         }
 
         public void ToggleActiveMissionDetails(Mission mission)

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace TakeTheSky
 {
-    public class MissionController : MonoBehaviour
+    public class GameController : MonoBehaviour
     {
         private static readonly Dictionary<DataPacketCategory, int> SCIENCE_POINT_REWARDS = new Dictionary<DataPacketCategory, int>
         {
@@ -18,11 +18,6 @@ namespace TakeTheSky
         public Text CurrentEpAmountText;
         public Text CurrentSpAmountText;
 
-        public Toggle ActiveMissionsToggleButton;
-        public Toggle CompletedMissionsToggleButton;
-        public GameObject ActiveMissionsScrollView;
-        public GameObject CompletedMissionsScrollView;
-
         public GameObject MissionDetailsController;
         public GameObject MissionToggleButtonPrefab;
         public Transform ActiveMissionsParentContent;
@@ -30,15 +25,8 @@ namespace TakeTheSky
         public Transform CompletedMissionsParentContent;
         public ToggleGroup CompletedMissionsToggleGroup;
 
-        void Start()
-        {
-            ToggleActiveMissionsDisplay(true);
-            ToggleCompletedMissionsDisplay(false);
-        }
-
         public void EndYear()
         {
-            TurnOffMissionsDisplay();
             CurrentState.CurrentYear++;
             CurrentState.CurrentEp += CurrentState.EpGainPerYear;
             ProcessArrivedMissions();
@@ -46,6 +34,7 @@ namespace TakeTheSky
             CurrentYearText.text = $"{CurrentState.CurrentYear}";
             CurrentEpAmountText.text = $"{CurrentState.CurrentEp}";
             CurrentSpAmountText.text = $"{CurrentState.CurrentSp}";
+            MissionDetailsController.GetComponent<MissionDetailsController>().TurnOffMissionsDisplay();
         }
 
         private void ProcessArrivedMissions()
@@ -109,41 +98,6 @@ namespace TakeTheSky
                 enabled => MissionDetailsController.GetComponent<MissionDetailsController>().ToggleActiveMissionDetails(mission));
             missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
             mission.Button = missionButtonInstance;
-        }
-
-        public void ToggleActiveMissionsDisplay(bool isOn)
-        {
-            ActiveMissionsScrollView.SetActive(isOn);
-            CompletedMissionsScrollView.SetActive(!isOn);
-            TurnOffMissionsDisplay();
-            ChangeBackgroundColor(ActiveMissionsToggleButton);
-        }
-
-        public void ToggleCompletedMissionsDisplay(bool isOn)
-        {
-            CompletedMissionsScrollView.SetActive(isOn);
-            ActiveMissionsScrollView.SetActive(!isOn);
-            TurnOffMissionsDisplay();
-            ChangeBackgroundColor(CompletedMissionsToggleButton);
-        }
-
-        private void TurnOffMissionsDisplay()
-        {
-            MissionDetailsController.GetComponent<MissionDetailsController>().HideMissionDetails();
-            ActiveMissionsToggleGroup.SetAllTogglesOff();
-            CompletedMissionsToggleGroup.SetAllTogglesOff();
-        }
-
-        private void ChangeBackgroundColor(Toggle toggleButton)
-        {
-            if (toggleButton.isOn)
-            {
-                toggleButton.image.color = new Color32(92, 205, 253, 255);
-            }
-            else
-            {
-                toggleButton.image.color = Color.white;
-            }
         }
     }
 }
