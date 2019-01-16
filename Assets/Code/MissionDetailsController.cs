@@ -13,6 +13,10 @@ namespace TakeTheSky
         public GameObject CompletedMissionsScrollView;
         public ToggleGroup CompletedMissionsToggleGroup;
 
+        public GameObject MissionToggleButtonPrefab;
+        public Transform ActiveMissionsParentContent;
+        public Transform CompletedMissionsParentContent;
+
         public GameObject MissionDetailsPanel;
         public Text MissionNameText;
         public Text MissionStatusValueText;
@@ -33,7 +37,7 @@ namespace TakeTheSky
             ActiveMissionsScrollView.SetActive(isOn);
             CompletedMissionsScrollView.SetActive(!isOn);
             TurnOffMissionsDisplay();
-            ChangeBackgroundColor(ActiveMissionsToggleButton);
+            UtilityMethods.ChangeBackgroundColor(ActiveMissionsToggleButton);
         }
 
         public void ToggleCompletedMissionsDisplay(bool isOn)
@@ -41,26 +45,27 @@ namespace TakeTheSky
             CompletedMissionsScrollView.SetActive(isOn);
             ActiveMissionsScrollView.SetActive(!isOn);
             TurnOffMissionsDisplay();
-            ChangeBackgroundColor(CompletedMissionsToggleButton);
+            UtilityMethods.ChangeBackgroundColor(CompletedMissionsToggleButton);
         }
 
-        public void TurnOffMissionsDisplay()
+        public void AddActiveMissionButton(Mission mission)
         {
-            MissionDetailsPanel.SetActive(false);
-            ActiveMissionsToggleGroup.SetAllTogglesOff();
-            CompletedMissionsToggleGroup.SetAllTogglesOff();
+            var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, ActiveMissionsParentContent, false);
+            missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup.GetComponent<ToggleGroup>();
+            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleActiveMissionDetails(mission));
+            missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
+            mission.Button = missionButtonInstance;
         }
 
-        private void ChangeBackgroundColor(Toggle toggleButton)
+        public void CompleteMission(Mission mission)
         {
-            if (toggleButton.isOn)
-            {
-                toggleButton.image.color = new Color32(92, 205, 253, 255);
-            }
-            else
-            {
-                toggleButton.image.color = Color.white;
-            }
+            Destroy(mission.Button); // the old button is attached to all the "active" group stuff
+
+            var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, CompletedMissionsParentContent, false);
+            missionButtonInstance.GetComponent<Toggle>().group = CompletedMissionsToggleGroup.GetComponent<ToggleGroup>();
+            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleCompletedMissionDetails(mission));
+            missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
+            mission.Button = missionButtonInstance;
         }
 
         public void ToggleActiveMissionDetails(Mission mission)
@@ -90,6 +95,13 @@ namespace TakeTheSky
                 EpCostAmountText.text = $"{mission.EpCost}";
                 ExplorerTypeValueText.text = $"{mission.Explorer.Type}";
             }
+        }
+
+        public void TurnOffMissionsDisplay()
+        {
+            MissionDetailsPanel.SetActive(false);
+            ActiveMissionsToggleGroup.SetAllTogglesOff();
+            CompletedMissionsToggleGroup.SetAllTogglesOff();
         }
     }
 }

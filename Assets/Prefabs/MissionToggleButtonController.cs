@@ -36,14 +36,7 @@ namespace TakeTheSky
 
         public void ChangeBackground(bool isOn)
         {
-            if (isOn)
-            {
-                MissionToggleButton.image.color = new Color32(92, 205, 253, 255);
-            }
-            else
-            {
-                MissionToggleButton.image.color = Color.white;
-            }
+            UtilityMethods.ChangeBackgroundColor(MissionToggleButton);
         }
     }
 }

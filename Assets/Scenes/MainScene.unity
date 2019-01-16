@@ -756,6 +756,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1642150507}
+  - {fileID: 759968430}
   - {fileID: 2066577308}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -874,6 +876,10 @@ MonoBehaviour:
   CompletedMissionsToggleButton: {fileID: 2146270009}
   CompletedMissionsScrollView: {fileID: 1652181694}
   CompletedMissionsToggleGroup: {fileID: 1112932736}
+  MissionToggleButtonPrefab: {fileID: 357599013144512104, guid: f8e73317124ea874aaa893a993243e6b,
+    type: 3}
+  ActiveMissionsParentContent: {fileID: 547432211}
+  CompletedMissionsParentContent: {fileID: 1366825113}
   MissionDetailsPanel: {fileID: 1256210806}
   MissionNameText: {fileID: 1804674963}
   MissionStatusValueText: {fileID: 207916894}
@@ -1409,13 +1415,7 @@ MonoBehaviour:
   CurrentYearText: {fileID: 990980714}
   CurrentEpAmountText: {fileID: 1327407887}
   CurrentSpAmountText: {fileID: 1694908456}
-  MissionDetailsController: {fileID: 545340735}
-  MissionToggleButtonPrefab: {fileID: 357599013144512104, guid: f8e73317124ea874aaa893a993243e6b,
-    type: 3}
-  ActiveMissionsParentContent: {fileID: 547432211}
-  ActiveMissionsToggleGroup: {fileID: 1334979673}
-  CompletedMissionsParentContent: {fileID: 1366825113}
-  CompletedMissionsToggleGroup: {fileID: 1112932736}
+  MissionDetailsController: {fileID: 545340736}
 --- !u!4 &759968430
 Transform:
   m_ObjectHideFlags: 0
@@ -1423,12 +1423,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759968428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 480.2119, y: 214.03903, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 480.2119, y: 214.03903, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &791513087
 GameObject:
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 759968429}
+      - m_Target: {fileID: 545340736}
         m_MethodName: ToggleActiveMissionsDisplay
         m_Mode: 0
         m_Arguments:
@@ -3357,12 +3357,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642150504}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1652181694
 GameObject:
@@ -4177,7 +4177,7 @@ RectTransform:
   m_Children:
   - {fileID: 691369382}
   m_Father: {fileID: 519420032}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4368,7 +4368,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 759968429}
+      - m_Target: {fileID: 545340736}
         m_MethodName: ToggleCompletedMissionsDisplay
         m_Mode: 0
         m_Arguments:
