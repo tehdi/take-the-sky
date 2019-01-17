@@ -40,7 +40,7 @@ namespace TakeTheSky
             dataPacket.Category = UtilityMethods.RandomEnumValue<DataPacketCategory>();
             dataPacket.Mission = this;
             dataPacket.Target = Target;
-            dataPacket.Year = CurrentState.CurrentYear;
+            dataPacket.ReceivedYear = CurrentState.CurrentYear;
             DataPackets.Add(dataPacket);
             return dataPacket;
         }

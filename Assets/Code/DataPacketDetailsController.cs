@@ -31,7 +31,7 @@ namespace TakeTheSky
             {
                 DataPacketDetailsPanel.SetActive(true);
 
-                ReceivedYearTextValue.text = $"{dataPacket.Year}";
+                ReceivedYearTextValue.text = $"{dataPacket.ReceivedYear}";
                 DataPacketContentsValueText.text = dataPacket.Contents;
             }
         }

@@ -22,7 +22,7 @@ namespace TakeTheSky
                     New Horizons
                     2015
              */
-            DataPacketToggleButtonText.text = BuildText(dataPacket.Target.Name, dataPacket.Mission.Name, dataPacket.Year);
+            DataPacketToggleButtonText.text = BuildText(dataPacket.Target.Name, dataPacket.Mission.Name, dataPacket.ReceivedYear);
         }
 
         private string BuildText(string targetName, string missionName, int year)
