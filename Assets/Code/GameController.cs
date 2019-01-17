@@ -19,6 +19,7 @@ namespace TakeTheSky
         public Text CurrentSpAmountText;
 
         public MissionDetailsController MissionDetailsController;
+        public DataPacketDetailsController DataPacketDetailsController;
 
         public void LaunchMission()
         {
@@ -65,6 +66,7 @@ namespace TakeTheSky
                 foreach (var mission in arrivedMissions)
                 {
                     DataPacket dataPacket = mission.GenerateDataPacket();
+                    DataPacketDetailsController.AddDataPacket(dataPacket);
                     CurrentState.CurrentSp += SCIENCE_POINT_REWARDS.GetOrDefault(dataPacket.Category, 1);
                     if (mission.IsComplete())
                     {

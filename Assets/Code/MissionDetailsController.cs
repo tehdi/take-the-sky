@@ -51,7 +51,7 @@ namespace TakeTheSky
         public void AddActiveMissionButton(Mission mission)
         {
             var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, ActiveMissionsParentContent, false);
-            missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup.GetComponent<ToggleGroup>();
+            missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup;
             missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleActiveMissionDetails(mission));
             missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
             mission.Button = missionButtonInstance;
@@ -62,7 +62,7 @@ namespace TakeTheSky
             Destroy(mission.Button); // the old button is attached to all the "active" group stuff
 
             var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, CompletedMissionsParentContent, false);
-            missionButtonInstance.GetComponent<Toggle>().group = CompletedMissionsToggleGroup.GetComponent<ToggleGroup>();
+            missionButtonInstance.GetComponent<Toggle>().group = CompletedMissionsToggleGroup;
             missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleCompletedMissionDetails(mission));
             missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
             mission.Button = missionButtonInstance;
@@ -80,7 +80,7 @@ namespace TakeTheSky
 
         private void ToggleMissionDetails(ToggleGroup toggleGroup, Mission mission)
         {
-            if (!toggleGroup.GetComponent<ToggleGroup>().AnyTogglesOn())
+            if (!toggleGroup.AnyTogglesOn())
             {
                 MissionDetailsPanel.SetActive(false);
             }
