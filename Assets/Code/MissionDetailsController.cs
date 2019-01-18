@@ -24,7 +24,7 @@ namespace TakeTheSky
         public Text ArrivalYearValueText;
         public Text EpCostAmountText;
         public Text ExplorerTypeValueText;
-        public Text ExplorerEquipmentValueText;    
+        public Text ExplorerEquipmentValueText;
 
         void Start()
         {
@@ -52,7 +52,7 @@ namespace TakeTheSky
         {
             var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, ActiveMissionsParentContent, false);
             missionButtonInstance.GetComponent<Toggle>().group = ActiveMissionsToggleGroup;
-            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleActiveMissionDetails(mission));
+            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleMissionDetails(mission, ActiveMissionsToggleGroup));
             missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
             mission.Button = missionButtonInstance;
         }
@@ -63,30 +63,22 @@ namespace TakeTheSky
 
             var missionButtonInstance = Instantiate(MissionToggleButtonPrefab, CompletedMissionsParentContent, false);
             missionButtonInstance.GetComponent<Toggle>().group = CompletedMissionsToggleGroup;
-            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleCompletedMissionDetails(mission));
+            missionButtonInstance.GetComponent<Toggle>().onValueChanged.AddListener(enabled => ToggleMissionDetails(mission, CompletedMissionsToggleGroup));
             missionButtonInstance.transform.Find("MissionToggleButtonController").GetComponent<MissionToggleButtonController>().Initialize(mission);
             mission.Button = missionButtonInstance;
-        }
+        } 
 
-        public void ToggleActiveMissionDetails(Mission mission)
-        {
-            ToggleMissionDetails(ActiveMissionsToggleGroup, mission);
-        }
-
-        public void ToggleCompletedMissionDetails(Mission mission)
-        {
-            ToggleMissionDetails(CompletedMissionsToggleGroup, mission);
-        }
-
-        private void ToggleMissionDetails(ToggleGroup toggleGroup, Mission mission)
+        private void ToggleMissionDetails(Mission mission, ToggleGroup toggleGroup)
         {
             if (!toggleGroup.AnyTogglesOn())
             {
                 MissionDetailsPanel.SetActive(false);
+                CurrentState.SelectedMission = null;
             }
             else
             {
                 MissionDetailsPanel.SetActive(true);
+                CurrentState.SelectedMission = mission;
 
                 MissionNameText.text = mission.Name;
                 MissionStatusValueText.text = $"{mission.Status}";
@@ -99,6 +91,7 @@ namespace TakeTheSky
 
         public void TurnOffMissionsDisplay()
         {
+            CurrentState.SelectedMission = null;
             MissionDetailsPanel.SetActive(false);
             ActiveMissionsToggleGroup.SetAllTogglesOff();
             CompletedMissionsToggleGroup.SetAllTogglesOff();

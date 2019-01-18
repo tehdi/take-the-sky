@@ -23,27 +23,30 @@ namespace TakeTheSky
 
         public void ToggleTargetsDisplay(bool isOn)
         {
-            ToggleCategoryDisplay();
+            ViewTargetsToggleButton.isOn = isOn;
+            ToggleCategoryDisplay(viewTargets: isOn);
             UtilityMethods.ChangeBackgroundColor(ViewTargetsToggleButton);
         }
 
         public void ToggleMissionsDisplay(bool isOn)
         {
-            ToggleCategoryDisplay();
+            ViewMissionsToggleButton.isOn = isOn;
+            ToggleCategoryDisplay(viewMissions: isOn);
             UtilityMethods.ChangeBackgroundColor(ViewMissionsToggleButton);
         }
 
         public void ToggleDataPacketsDisplay(bool isOn)
         {
-            ToggleCategoryDisplay();
+            ViewDataPacketsToggleButton.isOn = isOn;
+            ToggleCategoryDisplay(viewDataPackets: isOn);
             UtilityMethods.ChangeBackgroundColor(ViewDataPacketsToggleButton);
         }
 
-        private void ToggleCategoryDisplay()
+        private void ToggleCategoryDisplay(bool viewTargets = false, bool viewMissions = false, bool viewDataPackets = false)
         {
-            TargetContainer.SetActive(ViewTargetsToggleButton.isOn);
-            MissionContainer.SetActive(ViewMissionsToggleButton.isOn);
-            DataPacketContainer.SetActive(ViewDataPacketsToggleButton.isOn);
+            TargetContainer.SetActive(viewTargets);
+            MissionContainer.SetActive(viewMissions);
+            DataPacketContainer.SetActive(viewDataPackets);
         }
     }
 }
