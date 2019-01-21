@@ -14,5 +14,7 @@ namespace TakeTheSky
         public static int CurrentSp = START_SP;
 
         public static Dictionary<int, List<Mission>> ActiveMissions = new Dictionary<int, List<Mission>>();
+
+        public static Mission SelectedMission;
     }
 }

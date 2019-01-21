@@ -54,6 +54,7 @@ namespace TakeTheSky
             CurrentSpAmountText.text = $"{CurrentState.CurrentSp}";
 
             MissionDetailsController.TurnOffMissionsDisplay();
+            DataPacketDetailsController.TurnOffDataPacketDetailsDisplay();
         }
 
         private void ProcessArrivedMissions()
