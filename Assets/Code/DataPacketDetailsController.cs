@@ -34,6 +34,7 @@ namespace TakeTheSky
             SelectedMissionDataPacketsScrollView.SetActive(isOn);
             AllDataPacketsScrollView.SetActive(!isOn);
             TurnOffDataPacketDetailsDisplay();
+            SelectedMissionDataPacketsToggleButton.isOn = isOn;
             UtilityMethods.ChangeBackgroundColor(SelectedMissionDataPacketsToggleButton);
         }
 
