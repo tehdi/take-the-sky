@@ -17,13 +17,21 @@ namespace TakeTheSky
         public Text CurrentYearText;
         public Text CurrentEpAmountText;
         public Text CurrentSpAmountText;
+        public Button LaunchMissionButton;
 
         public MissionDetailsController MissionDetailsController;
         public DataPacketDetailsController DataPacketDetailsController;
 
+        private int ProposedMissionEpCost { get { return 1; } }
+
+        void Update()
+        {
+            LaunchMissionButton.interactable = CurrentState.CurrentEp >= ProposedMissionEpCost;
+        }
+
         public void LaunchMission()
         {
-            int epCost = 1;
+            int epCost = ProposedMissionEpCost;
             CurrentState.CurrentEp -= epCost;
 
             Target target = new Target() { Name = "Default Target" };
@@ -76,5 +84,6 @@ namespace TakeTheSky
                 }
             }
         }
+
     }
 }
