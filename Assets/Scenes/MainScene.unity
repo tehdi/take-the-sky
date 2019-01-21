@@ -2750,6 +2750,7 @@ MonoBehaviour:
   CurrentYearText: {fileID: 990980714}
   CurrentEpAmountText: {fileID: 1327407887}
   CurrentSpAmountText: {fileID: 1694908456}
+  LaunchMissionButton: {fileID: 748596660}
   MissionDetailsController: {fileID: 545340736}
   DataPacketDetailsController: {fileID: 1782375118}
 --- !u!4 &759968430
